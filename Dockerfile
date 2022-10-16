@@ -7,7 +7,19 @@ WORKDIR /app
 # COPY package.json package-lock.json ./
 COPY . .
 
-# como buena practica se recomienda exponer el puerto al que se va a acceder
-EXPOSE 8080
-# 
-RUN npm install nodemon -gn
+RUN npm install 
+# && npm install nodemon -g
+
+### 
+FROM dependencias AS dev
+
+COPY . .
+
+EXPOSE 3000
+
+CMD [ "npm","run","serve" ]
+
+#####
+#FROM dependencias AS builder
+#COPY . .
+#CMD [ "npm","run","build" ]
