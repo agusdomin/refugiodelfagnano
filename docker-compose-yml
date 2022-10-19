@@ -1,15 +1,12 @@
 version: "3.9"  # optional since v1.27.0
 services:
-  web:
-    image: react-app-base-02
+  app:
+    image: refugio-fagnano-react-dev-v1.1
     build: 
       context: .
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
-    networks:
-      - red
-
-networks:
-  red:
-    driver: bridge
+    volumes:
+      - ./src:/app/src
+    

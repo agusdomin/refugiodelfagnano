@@ -1,25 +1,24 @@
 FROM node:16.17.1-alpine3.15 as dependencias
-
-# Indica el directorio de trabajo, por defecto es el raiz
 WORKDIR /app
-
-# Copia todos los archivos en el directorio actual al directorio de trabajo del container
-# COPY package.json package-lock.json ./
-COPY . .
-
+COPY package.json package-lock.json ./
 RUN npm install 
-# && npm install nodemon -g
 
-### 
+######################
 FROM dependencias AS dev
-
 COPY . .
-
 EXPOSE 3000
-
 CMD [ "npm","run","serve" ]
 
-#####
-#FROM dependencias AS builder
-#COPY . .
-#CMD [ "npm","run","build" ]
+######################
+FROM dependencias AS builder
+COPY . .
+RUN npm run build
+
+### Prod
+FROM nginx:1.23.1 AS prod
+WORKDIR /usr/share/nginx/html
+# Remove default nginx static resources
+RUN rm -rf ./*
+# Copies static resources from builder stage
+COPY --from=builder /app/dist .
+CMD ["nginx", "-g", "daemon off;"]

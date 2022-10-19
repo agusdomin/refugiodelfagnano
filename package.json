@@ -17,6 +17,7 @@
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.2",
     "css-loader": "^1.0.0",
+    "react-hot-loader": "^4.13.0",
     "style-loader": "^0.23.0",
     "webpack": "^4.19.1",
     "webpack-cli": "^4.10.0",
@@ -24,7 +25,6 @@
   },
   "dependencies": {
     "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-hot-loader": "^4.13.0"
+    "react-dom": "^17.0.2"
   }
 }
